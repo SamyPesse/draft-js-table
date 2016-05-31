@@ -235,6 +235,7 @@ class TableControls extends React.Component {
         super(props);
 
         this.onInsertRow = this._onInsertRow.bind(this);
+        this.onInsertColumn = this._onInsertColumn.bind(this);
     }
 
     _onInsertRow(e) {
@@ -244,10 +245,18 @@ class TableControls extends React.Component {
         );
     }
 
+    _onInsertColumn(e) {
+        e.preventDefault();
+        this.props.onChange(
+            TableUtils.insertColumn(this.props.editorState)
+        );
+    }
+
     render() {
         return (
                 <div className="RichEditor-controls">
                     <span className={'RichEditor-styleButton'} onMouseDown={this.onInsertRow}>Insert Row</span>
+                    <span className={'RichEditor-styleButton'} onMouseDown={this.onInsertColumn}>Insert Column</span>
                 </div>
             );
     }
