@@ -2,44 +2,40 @@ const Draft = require('draft-js');
 const React = require('react');
 const Immutable = require('immutable');
 const ReactDOM = require('react-dom');
-const PrismDraftDecorator = require('../')
+const TableUtils = require('../')
 
 const {
     Editor,
     EditorState,
     RichUtils,
-    DefaultDraftBlockRenderMap,
+    NestedUtils,
     Decorator,
     convertFromRaw
 } = Draft;
 
+
 const {Map, List} = Immutable;
 
-class PrismEditorExample extends React.Component {
+class TableEditorExample extends React.Component {
     constructor(props) {
         super(props);
 
-        var decorator = new PrismDraftDecorator();
         var contentState = convertFromRaw({
             entityMap: {},
             blocks: [
                 {
                     type: 'header-one',
-                    text: 'Demo for draftjs-prism'
+                    text: 'Demo for editing table in DraftJS'
                 },
                 {
                     type: 'unstyled',
-                    text: 'Type some JavaScript below:'
-                },
-                {
-                    type: 'code-block',
-                    text: 'var message = "This is awesome!";'
+                    text: 'Insert a table here using the button in the toolbar.'
                 }
             ]
-        })
+        }, NestedUtils.DefaultBlockRenderMap)
 
         this.state = {
-            editorState: EditorState.createWithContent(contentState, decorator),
+            editorState: EditorState.createWithContent(contentState),
         };
 
         this.focus = () => this.refs.editor.focus();
@@ -52,7 +48,8 @@ class PrismEditorExample extends React.Component {
 
     _handleKeyCommand(command) {
         const {editorState} = this.state;
-        const newState = RichUtils.handleKeyCommand(editorState, command);
+        const newState = (TableUtils.handleKeyCommand(editorState, command)
+            || RichUtils.handleKeyCommand(editorState, command));
         if (newState) {
             this.onChange(newState);
             return true;
@@ -91,12 +88,18 @@ class PrismEditorExample extends React.Component {
             }
         }
 
+        let isTable = TableUtils.hasSelectionInTable(editorState);
+
         return (
             <div className="RichEditor-root">
-                <BlockStyleControls
+                {isTable? <TableControls
+                    editorState={editorState}
+                    onChange={this.onChange}
+                /> : <BlockStyleControls
                     editorState={editorState}
                     onToggle={this.toggleBlockType}
-                />
+                    onChange={this.onChange}
+                />}
                 <InlineStyleControls
                     editorState={editorState}
                     onToggle={this.toggleInlineStyle}
@@ -106,6 +109,7 @@ class PrismEditorExample extends React.Component {
                         blockStyleFn={getBlockStyle}
                         customStyleMap={styleMap}
                         editorState={editorState}
+                        blockRenderMap={NestedUtils.DefaultBlockRenderMap}
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         placeholder="Tell a story..."
@@ -179,6 +183,13 @@ const BlockStyleControls = (props) => {
         .getBlockForKey(selection.getStartKey())
         .getType();
 
+    function onInsertTable(e) {
+        e.preventDefault();
+        props.onChange(
+            TableUtils.insertTable(editorState)
+        );
+    }
+
     return (
         <div className="RichEditor-controls">
             {BLOCK_TYPES.map((type) =>
@@ -190,6 +201,7 @@ const BlockStyleControls = (props) => {
                     style={type.style}
                 />
             )}
+            <span className={'RichEditor-styleButton'} onMouseDown={onInsertTable}>Insert Table</span>
         </div>
     );
 };
@@ -218,7 +230,30 @@ const InlineStyleControls = (props) => {
     );
 };
 
+class TableControls extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onInsertRow = this._onInsertRow.bind(this);
+    }
+
+    _onInsertRow(e) {
+        e.preventDefault();
+        this.props.onChange(
+            TableUtils.insertRow(this.props.editorState)
+        );
+    }
+
+    render() {
+        return (
+                <div className="RichEditor-controls">
+                    <span className={'RichEditor-styleButton'} onMouseDown={this.onInsertRow}>Insert Row</span>
+                </div>
+            );
+    }
+};
+
 ReactDOM.render(
-    <PrismEditorExample />,
+    <TableEditorExample />,
     document.getElementById('target')
 );
