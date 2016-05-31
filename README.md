@@ -1,8 +1,11 @@
 # draft-js-table
 
 [![NPM version](https://badge.fury.io/js/draft-js-table.svg)](http://badge.fury.io/js/draft-js-table)
+[![Build Status](https://travis-ci.org/SamyPesse/draft-js-table.svg?branch=master)](https://travis-ci.org/SamyPesse/draft-js-table)
 
-`draft-js-table` is a collection of utilities to edit tables in DraftJS.
+`draft-js-table` is a collection of utilities to edit tables in DraftJS. This module requires the use of [facebook/draft-js#388](https://github.com/facebook/draft-js/pull/388).
+
+A working demo is available at [samypesse.github.io/draft-js-table/](http://samypesse.github.io/draft-js-table/).
 
 
 ### Installation
