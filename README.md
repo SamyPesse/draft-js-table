@@ -30,6 +30,9 @@ var newEditorState = TableUtils.insertRow(editorState, nRows, nColumns);
 `draft-js-table` provides a set of functions to help handle key events/commands from DraftJS. This function can be composed with other command handlers.
 
 ```js
+const blockRenderMap = NestedUtils.DefaultBlockRenderMap
+    .merge(TableUtils.DefaultBlockRenderMap);
+
 var MyEditor = React.createComponent({
     getInitialState: function() {
         return {
@@ -58,6 +61,7 @@ var MyEditor = React.createComponent({
         retur  <Draft.Editor
             editorState={this.state.editorState}
             handleKeyCommand={this.handleKeyCommand}
+            blockRenderMap={blockRenderMap}
             onChange={this.onChange}
         />;
     }

@@ -16,6 +16,9 @@ const {
 
 const {Map, List} = Immutable;
 
+const blockRenderMap = NestedUtils.DefaultBlockRenderMap
+    .merge(TableUtils.DefaultBlockRenderMap);
+
 class TableEditorExample extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +35,7 @@ class TableEditorExample extends React.Component {
                     text: 'Insert a table here using the button in the toolbar.'
                 }
             ]
-        }, NestedUtils.DefaultBlockRenderMap)
+        }, blockRenderMap)
 
         this.state = {
             editorState: EditorState.createWithContent(contentState),
@@ -109,7 +112,7 @@ class TableEditorExample extends React.Component {
                         blockStyleFn={getBlockStyle}
                         customStyleMap={styleMap}
                         editorState={editorState}
-                        blockRenderMap={NestedUtils.DefaultBlockRenderMap}
+                        blockRenderMap={blockRenderMap}
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         placeholder="Tell a story..."
@@ -133,10 +136,7 @@ const styleMap = {
 };
 
 function getBlockStyle(block) {
-    switch (block.getType()) {
-        case 'blockquote': return 'RichEditor-blockquote';
-        default: return null;
-    }
+    return 'RichEditor-' + block.getType();
 }
 
 class StyleButton extends React.Component {

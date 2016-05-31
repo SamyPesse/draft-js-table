@@ -62,10 +62,27 @@
   color: #5890ff;
 }
 
-table {
 
+.RichEditor-table {
+  display:table;
+  width: 100%;
+  background-color: #fff;
+  border:1px solid  #666666;
+  border-spacing: 5px;
 }
-
-td {
-  border: 1px solid #ddd;
+.RichEditor-table-header {
+  display: table-header-group;
+  background: #eee;
+}
+.RichEditor-table-body {
+  display: table-row-group;
+}
+.RichEditor-table-row {
+  display:table-row;
+  width:auto;
+  clear:both;
+}
+.RichEditor-table-cell {
+  display:table-cell;
+  padding: 8px;
 }
