@@ -43,6 +43,8 @@ class TableEditorExample extends React.Component {
 
         this.focus = () => this.refs.editor.focus();
         this.onChange = (editorState) => this.setState({editorState});
+        this.onUpArrow = (e) => this._onUpArrow(e);
+        this.onDownArrow = (e) => this._onDownArrow(e);
 
         this.handleKeyCommand = (command) => this._handleKeyCommand(command);
         this.toggleBlockType = (type) => this._toggleBlockType(type);
@@ -74,6 +76,24 @@ class TableEditorExample extends React.Component {
             RichUtils.toggleInlineStyle(
                 this.state.editorState,
                 inlineStyle
+            )
+        );
+    }
+
+    _onUpArrow(e) {
+        this.onChange(
+            TableUtils.onUpArrow(
+                this.state.editorState,
+                e
+            )
+        );
+    }
+
+    _onDownArrow(e) {
+        this.onChange(
+            TableUtils.onDownArrow(
+                this.state.editorState,
+                e
             )
         );
     }
@@ -118,6 +138,8 @@ class TableEditorExample extends React.Component {
                         placeholder="Tell a story..."
                         ref="editor"
                         spellCheck={true}
+                        onUpArrow={this.onUpArrow}
+                        onDownArrow={this.onDownArrow}
                     />
                 </div>
             </div>

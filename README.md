@@ -14,19 +14,20 @@ A working demo is available at [samypesse.github.io/draft-js-table/](http://samy
 $ npm install draft-js-table
 ```
 
-### Usage
+### API
 
-```js
-var Draft = require('draft-js');
-var TableUtils = require('draft-js-table');
+##### `TableUtils.insertTable(editorState, nRows, nColumns)`
 
+Insert a new table to replace current block.
 
-// Insert a new table to replace current block
-var newEditorState = TableUtils.insertTable(editorState, nRows, nColumns);
+##### `TableUtils.insertRow(editorState)`
 
-// Insert a new row into the current table
-var newEditorState = TableUtils.insertRow(editorState, nRows, nColumns);
-```
+Insert a new row after the current one.
+
+##### `TableUtils.insertColumn(editorState)`
+
+Insert a new column after the current one.
+
 
 ##### Handle key events inside a table
 
