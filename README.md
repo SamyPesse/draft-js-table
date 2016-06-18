@@ -32,6 +32,10 @@ Insert a new column after the current one.
 
 Return the text alignment in a cell (`left`, `right` or `center`).
 
+##### `TableUtils.setAlignForCell(contentState, cellKey, align)`
+
+Update the text alignment in a cell (`left`, `right` or `center`).
+
 ##### Handle key events inside a table
 
 `draft-js-table` provides a set of functions to help handle key events/commands from DraftJS. This function can be composed with other command handlers.

@@ -32,7 +32,7 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "draft-js": "SamyPesse/draft-js#29b01ad40370029339b2e17bd92addcb59520587",
+    "draft-js": "SamyPesse/draft-js#07910feb82ebc87a6e47f08e65ec135f2d73f067",
     "eslint": "^2.11.1",
     "expect": "^1.20.1",
     "gh-pages": "^0.11.0",
