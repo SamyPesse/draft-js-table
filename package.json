@@ -1,6 +1,6 @@
 {
   "name": "draft-js-table",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Utilities to edit tables in DraftJS",
   "main": "./lib/index.js",
   "scripts": {
