@@ -28,6 +28,9 @@ Insert a new row after the current one.
 
 Insert a new column after the current one.
 
+##### `TableUtils.getAlignForCell(contentState, cellKey)`
+
+Return the text alignment in a cell (`left`, `right` or `center`).
 
 ##### Handle key events inside a table
 
