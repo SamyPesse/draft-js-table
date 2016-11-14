@@ -58,7 +58,7 @@ var MyEditor = React.createComponent({
     },
 
     handleKeyCommand: function(command) {
-        var newState = (TableUtils.hanldeKeyCommand(editorState, command)
+        var newState = (TableUtils.handleKeyCommand(editorState, command)
             || Draft.RichUtils.handleKeyCommand(editorState, command));
 
         if (newState) {
